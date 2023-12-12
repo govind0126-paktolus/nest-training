@@ -18,6 +18,7 @@
 #### 13. JWT
 #### 14. Passport
 #### 15. CLI
+#### 16. Hashing (Bcrypt)
 
        
 
