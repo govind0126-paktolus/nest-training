@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 import { Injectable } from '@nestjs/common';
-import { CreateUserDTO } from './DTO/create-user.dto';
+import { CreateUserDTO, toCreateUserDto } from './DTO/create-user.dto';
 import { UserEntity } from './entity/user.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -13,9 +13,11 @@ export class UserService {
     private usersRepository: Repository<UserEntity>,
   ) {}
 
-  store(createUserDTO: CreateUserDTO) {
-    return this.usersRepository.save(createUserDTO);
+  async store(createUserDTO: CreateUserDTO) {
+    const userToSave = await toCreateUserDto(createUserDTO);
+    return this.usersRepository.save(userToSave);
   }
+
   getUsers() {
     return this.usersRepository.find();
   }
